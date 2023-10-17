@@ -19,7 +19,6 @@ onMounted(async () => {
     <h2>{{ movie.title }}</h2>
     <p>{{ movie.description }}</p>
   </div>
-  <hr>
   <div v-if="actorsData['hydra:member']" v-for="actor in actorsData['hydra:member'].slice(0,4)">
     <h2>{{ actor.firstName }} {{ actor.lastName }}</h2>
     <p>{{ actor.description }}</p>
