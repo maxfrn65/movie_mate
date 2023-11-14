@@ -33,18 +33,9 @@
 </template>
 
 <style lang="scss">
-  .content-view {
-    padding: 50px 300px;
-    .t-header {
-      display: flex;
-      justify-content: space-between;
-      h1 {
-        font-family: 'Space Grotesk', sans-serif;
-        font-weight: bold;
-        font-size: 32px;
-        margin-bottom: 20px;
-      }
-    }
+  .t-header {
+    display: flex;
+    justify-content: space-between;
   }
   table {
     width: 100%;

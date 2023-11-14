@@ -31,8 +31,6 @@ onMounted(async () => {
 </template>
 
 <style lang="scss">
-.content-view {
-  padding: 50px 300px;
   .t-header {
     display: flex;
     justify-content: space-between;
@@ -43,30 +41,29 @@ onMounted(async () => {
       margin-bottom: 20px;
     }
   }
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  th {
-    text-align: left;
-    padding: 10px 0;
-    font-weight: bold;
-    border-bottom: 1px solid #1a1a1a;
-  }
-  td {
-    padding: 10px 0;
-    border-bottom: 1px solid #1a1a1a;
-    height: fit-content;
-    .icn {
-      padding: 10px;
-      border-radius: 50px;
-      color: black;
-      transition: color 0.25s ease-out;
-      &:hover {
-        background-color: #f5ecff;
-        color: #834AFF;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      text-align: left;
+      padding: 10px 0;
+      font-weight: bold;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    td {
+      padding: 10px 0;
+      border-bottom: 1px solid #1a1a1a;
+      height: fit-content;
+      .icn {
+        padding: 10px;
+        border-radius: 50px;
+        color: black;
+        transition: color 0.25s ease-out;
+        &:hover {
+          background-color: #f5ecff;
+          color: #834AFF;
+        }
       }
     }
   }
-}
 </style>

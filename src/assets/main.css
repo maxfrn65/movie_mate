@@ -1,2 +1,11 @@
 @import './base.css';
 
+h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.content-view {
+    padding: 50px 300px;
+}

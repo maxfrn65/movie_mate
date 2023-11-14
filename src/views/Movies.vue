@@ -36,42 +36,33 @@
 </template>
 
 <style lang="scss">
-.content-view {
-  padding: 50px 300px;
   .t-header {
     display: flex;
     justify-content: space-between;
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      text-align: left;
+      padding: 10px 0;
       font-weight: bold;
-      font-size: 32px;
-      margin-bottom: 20px;
+      border-bottom: 1px solid #1a1a1a;
     }
-  }
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  th {
-    text-align: left;
-    padding: 10px 0;
-    font-weight: bold;
-    border-bottom: 1px solid #1a1a1a;
-  }
-  td {
-    padding: 10px 0;
-    border-bottom: 1px solid #1a1a1a;
-    height: fit-content;
-    .icn {
-      padding: 10px;
-      border-radius: 50px;
-      color: black;
-      transition: color 0.25s ease-out;
-      &:hover {
-        background-color: #f5ecff;
-        color: #834AFF;
+    td {
+      padding: 10px 0;
+      border-bottom: 1px solid #1a1a1a;
+      height: fit-content;
+      .icn {
+        padding: 10px;
+        border-radius: 50px;
+        color: black;
+        transition: color 0.25s ease-out;
+        &:hover {
+          background-color: #f5ecff;
+          color: #834AFF;
+        }
       }
     }
   }
-}
 </style>
