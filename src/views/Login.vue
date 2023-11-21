@@ -1,27 +1,11 @@
 <script setup>
 import IconFormBtn from "@/components/iconFormBtn.vue";
-import axios from 'axios';
-
-function submitForm() {
-  const username = document.getElementById('username').value
-  const password = document.getElementById('password').value
-
-  axios.post('https://127.0.0.1:8000/api/login_check', {
-    username: username,
-    password: password
-  })
-  .then(function (response) {
-    console.log(response);
-    localStorage.setItem('token', response.data.token)
-    window.location.href = '/actors'
-  })
-}
 </script>
 
 <template>
 <div class="content-view">
   <h1>Login</h1>
-  <form @submit="submitForm">
+  <form @submit.prevent="submitForm">
     <div class="form-label-container">
       <div class="form-label">
         <label for="username">Username</label>
@@ -32,6 +16,7 @@ function submitForm() {
         <input type="password" name="password" id="password">
       </div>
     </div>
+    <button type="submit">Se connecter</button>
     <icon-form-btn icon="login" text="Login" />
   </form>
 </div>
@@ -60,3 +45,27 @@ h1 {
     }
   }
 </style>
+<script>
+import axios from "axios";
+
+export default {
+  methods: {
+    async submitForm() {
+      const username = document.getElementById('username').value
+      const password = document.getElementById('password').value
+
+      try {
+        const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
+          username: username,
+          password: password
+        });
+        console.log(response.data);
+        localStorage.setItem('token', response.data.token)
+        this.$router.push({name: 'actors'})
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+}
+</script>
