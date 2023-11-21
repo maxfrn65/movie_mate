@@ -5,7 +5,7 @@
 
   let actorsData = ref([]);
   onMounted(async () => {
-    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors?page=1')
+    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors')
     actorsData.value = actorsResponse.data})
 </script>
 

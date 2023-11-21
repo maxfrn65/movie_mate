@@ -6,7 +6,7 @@
   <div id="app">
     <header>
       <div class="inner-header-container">
-        <router-link class="home" to="/"><h1>MovieMate</h1></router-link>
+        <router-link class="home" to="/"><h1>CineBuddy</h1></router-link>
         <nav>
           <router-link class="hover-underline-animation" to="actors">Actors</router-link>
           <router-link class="hover-underline-animation" to="movies">Movies</router-link>
