@@ -3,9 +3,13 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import IconBtn from "@/components/iconBtn.vue";
 
+let token = localStorage.getItem('token')
 let categoriesData = ref([]);
 onMounted(async () => {
-  const categoriesResponse = await axios.get('https://127.0.0.1:8000/api/movies?page=1')
+  const categoriesResponse = await axios.get('https://127.0.0.1:8000/api/categories', {headers: {
+      'Authorization': `Bearer ${token}`,
+    }
+  })
   categoriesData.value = categoriesResponse.data})
 </script>
 
@@ -30,7 +34,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .t-header {
     display: flex;
     justify-content: space-between;
@@ -54,16 +58,6 @@ onMounted(async () => {
       padding: 10px 0;
       border-bottom: 1px solid #1a1a1a;
       height: fit-content;
-      .icn {
-        padding: 10px;
-        border-radius: 50px;
-        color: black;
-        transition: color 0.25s ease-out;
-        &:hover {
-          background-color: #f5ecff;
-          color: #834AFF;
-        }
       }
     }
-  }
 </style>

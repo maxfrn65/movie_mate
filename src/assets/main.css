@@ -6,6 +6,40 @@ h1 {
     font-size: 32px;
 }
 
+.stop-scrolling {
+
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
 .content-view {
     padding: 50px 300px;
 }
+
+.icn {
+    padding: 5px;
+    color: black;
+    transition: color 0.25s ease-in-out;
+    &:hover {
+        cursor: pointer;
+        color: #834AFF;
+    }
+}
+
+.form-label {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    width: 50%;
+    height: 40px;
+    border: black 1px solid;
+    padding: 10px;
+    &:focus {
+        outline: none;
+    }
+}
+

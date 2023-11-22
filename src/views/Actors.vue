@@ -3,9 +3,13 @@
   import iconBtn from '@/components/iconBtn.vue'
   import axios from 'axios'
 
+  let token = localStorage.getItem('token')
   let actorsData = ref([]);
   onMounted(async () => {
-    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors')
+    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors', {headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
     actorsData.value = actorsResponse.data})
 </script>
 
@@ -32,7 +36,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .t-header {
     display: flex;
     justify-content: space-between;
@@ -50,16 +54,6 @@
       padding: 10px 0;
       border-bottom: 1px solid #1a1a1a;
       height: fit-content;
-      .icn {
-        padding: 10px;
-        border-radius: 50px;
-        color: black;
-        transition: color 0.25s ease-out;
-        &:hover {
-          background-color: #f5ecff;
-          color: #834AFF;
-        }
-      }
     }
   }
 </style>
