@@ -44,7 +44,7 @@
           <td>{{ movie.description }}</td>
           <td>{{ movie.releaseDate }}</td>
           <td>{{ movie.duration }}</td>
-          <td><a class="icn" @click="edit"><span class="material-symbols-outlined">edit</span></a><router-link to="" class="icn"><span class="material-symbols-outlined">delete</span></router-link></td>
+          <td><a class="icn" @click="edit(movie.id)"><span class="material-symbols-outlined">edit</span></a><router-link to="" class="icn"><span class="material-symbols-outlined">delete</span></router-link></td>
         </tr>
       </table>
   </div>
