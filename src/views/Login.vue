@@ -16,7 +16,6 @@ import IconFormBtn from "@/components/iconFormBtn.vue";
         <input type="password" name="password" id="password">
       </div>
     </div>
-    <button type="submit">Se connecter</button>
     <icon-form-btn icon="login" text="Login" />
   </form>
 </div>
