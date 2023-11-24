@@ -1,85 +1,104 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div id="app">
+    <header>
+      <div class="inner-header-container">
+        <router-link class="home" to="/"><h1>MovieMate</h1></router-link>
+        <nav>
+          <router-link class="hover-underline-animation" to="actors">Actors</router-link>
+          <router-link class="hover-underline-animation" to="movies">Movies</router-link>
+          <router-link class="hover-underline-animation" to="categories">Categories</router-link>
+        </nav>
+      </div>
+      <div class="icn-header-container">
+        <router-link class="search" to="search"><span class="material-symbols-outlined">search</span></router-link>
+        <router-link class="search" to="login"><span class="material-symbols-outlined">login</span></router-link>
+      </div>
+    </header>
+    <div id="view-content">
+      <router-view />
     </div>
-  </header>
-
-  <RouterView />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
+<style scoped lang="scss">
   header {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    .home {
+      text-decoration: none;
+      transition: color 0.25s ease-out;
+      &:hover {
+        color: #834AFF;
+      }
+    }
+    .search {
+      color: white;
+      transition: color 0.25s ease-out;
+      &:hover {
+        color: #834AFF;
+      }
+      span {
+        font-size: 32px;
+      }
+    }
+    background-color: #1a1a1a;
+    .inner-header-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      h1 {
+        color: white;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+        a {
+          color: white;
+          font-family: 'Space Grotesk', sans-serif;
+          text-decoration: none;
+          border-radius: 25px;
+          font-weight: 300;
+          transition: color 0.25s ease-out;
+          &:hover {
+            color: #834AFF;
+          }
+        }
+      }
+    }
+    .icn-header-container {
+      display: flex;
+      gap: 20px;
+    }
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .hover-underline-animation {
+    display: inline-block;
+    position: relative;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 2px;
+    left: 0;
+    background-color: #834AFF;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
   }
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
-}
 </style>
