@@ -40,7 +40,11 @@
       <h1>Movies</h1>
       <iconBtn icon="add" text="Add a Movie" />
     </div>
-    <div class="content-grid">
+    <div class="not-logged-in" v-if="!token">
+      <h1>You must be signed in to see the list!</h1>
+      <iconBtn text="Sign In" url="login"/>
+    </div>
+    <div class="content-grid" v-else>
       <div v-if="moviesData" v-for="movie in moviesData['hydra:member']" class="movie">
         <div class="img-container">
           <div class="Poster">

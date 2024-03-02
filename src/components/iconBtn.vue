@@ -3,11 +3,15 @@ import { defineProps } from 'vue'
 defineProps({
     icon: {
       type: String,
-      default: 'add'
+      default: ''
     },
     text: {
       type: String,
       default: 'Button Label'
+    },
+    url: {
+      type: String,
+      default: ''
     }
   }
 )
@@ -15,7 +19,7 @@ defineProps({
 
 <template>
   <div class="btn">
-    <div class="btn-fg"><router-link to="" class="btn-text"><span class="material-symbols-outlined">{{ icon }}</span>{{ text }}</router-link></div>
+    <div class="btn-fg"><router-link :to="url" class="btn-text"><span class="material-symbols-outlined">{{ icon }}</span>{{ text }}</router-link></div>
     <div class="btn-bg"></div>
   </div>
 </template>
