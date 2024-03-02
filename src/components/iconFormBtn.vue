@@ -69,7 +69,7 @@ defineProps({
       width: 100%; /* Utilisez 100% pour remplir la largeur de la div parent .btn */
       height: 100%; /* Utilisez 100% pour remplir la hauteur de la div parent .btn */
       background-color: #834AFF;
-      border: black 2px solid;
+      border: black 0.5px solid;
       z-index: -1;
       position: absolute; /* Utilisez une position absolue pour empiler derrière .btn-fg */
     }

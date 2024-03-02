@@ -4,97 +4,137 @@
   import IconBtn from "@/components/iconBtn.vue";
   import IconFormBtn from "@/components/iconFormBtn.vue";
 
+  let movies = [];
+  let selectedMovieId = null;
+  let selectedMovie = null;
+  let editedMovieTitle = '';
   let token = localStorage.getItem('token')
   let moviesData = ref([]);
+
   onMounted(async () => {
     const moviesResponse = await axios.get('https://127.0.0.1:8000/api/movies', {headers: {
         'Authorization': `Bearer ${token}`,
       }
     })
-    moviesData.value = moviesResponse.data})
+    moviesData.value = moviesResponse.data
+    console.log(moviesData.value)
+  })
 
   const closePopup = () => {
     document.querySelector('.edit-bg').style.display = 'none'
   }
 
-  const edit = () => {
+  function edit(movieId) {
     document.querySelector('.edit-bg').style.display = 'block';
     document.body.classList.add('.stop-scroll');
+    this.selectedMovieId = this.selectedMovieId === movieId ? null : movieId;
+    this.selectedMovie = this.movies.find(movie => movie.id === this.selectedMovieId);
+    this.editedMovieTitle = this.selectedMovie ? this.selectedMovie.title : '';
   }
+
 </script>
 
 <template>
   <div class="content-view">
-    <div class="t-header">
+    <div class="header">
       <h1>Movies</h1>
       <iconBtn icon="add" text="Add a Movie" />
     </div>
-      <table>
-        <tr>
-          <th>id</th>
-          <th>title</th>
-          <th>description</th>
-          <th>release date</th>
-          <th>duration</th>
-          <th>edit/delete</th>
-        </tr>
-        <tr v-for="movie in moviesData['hydra:member']">
-          <td>{{ movie.id }}</td>
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.description }}</td>
-          <td>{{ movie.releaseDate }}</td>
-          <td>{{ movie.duration }}</td>
-          <td><a class="icn" @click="edit(movie.id)"><span class="material-symbols-outlined">edit</span></a><router-link to="" class="icn"><span class="material-symbols-outlined">delete</span></router-link></td>
-        </tr>
-      </table>
-  </div>
+    <div class="not-logged-in" v-if="!token">
+      <h1>You must be signed in to see the list!</h1>
+      <iconBtn text="Sign In" url="login"/>
+    </div>
+    <div class="content-grid" v-else>
+      <div v-if="moviesData" v-for="movie in moviesData['hydra:member']" class="movie">
+        <div class="img-container">
+          <div class="Poster">
+          </div>
+          <div class="img-hover">
+            <div @click="edit"><span class="material-symbols-outlined">edit</span></div>
+            <div><span class="material-symbols-outlined">delete</span></div>
+          </div>
+        </div>
+        <h2>{{ movie.title }}</h2>
+      </div>
+    </div>
+    </div>
   <div class="edit-bg">
     <div class="edit-fg">
       <div class="popup-header">
         <h1>Edit</h1>
         <button @click="closePopup"><span class="material-symbols-outlined">close</span></button>
       </div>
-      <div class="form-label">
-        <label for="">Titre</label>
-        <input type="text" v-model="movieTitle">
-      </div>
-      <div class="form-label">
-        <label for="">Description</label>
-        <textarea></textarea>
-      </div>
-      <div class="form-label">
-        <label for="">Release Date</label>
-        <input type="date">
-      </div>
-      <div class="form-label">
-        <label for="">Duration (min)</label>
-        <input type="number" min="0">
-      </div>
-      <icon-btn icon="" text="Edit" />
+      <form action="">
+        <div class="form-label">
+          <label for="">Title</label>
+          <input type="text" v-model="editedMovieTitle">
+        </div>
+      </form>
+      <icon-btn icon="" text="Edit this Movie" />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-  .t-header {
+  .header {
     display: flex;
     justify-content: space-between;
   }
-  table {
+
+  .content-grid {
+    display: grid;
+    margin-top: 50px;
     width: 100%;
-    border-collapse: collapse;
-    th {
-      text-align: left;
-      padding: 10px 0;
-      font-weight: bold;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    td {
-      padding: 10px 0;
-      border-bottom: 1px solid #1a1a1a;
-      height: fit-content;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    justify-items: center;
+    align-items: center;
+    .movie {
+      width: fit-content;
+      .img-container {
+        .img-hover {
+          display: none;
+        }
+        .Poster {
+          width: 160px;
+          height: 230px;
+          background-color: lightgray;
+          border: 1px solid black;
+        }
+        &:hover {
+          position: relative;
+          .img-hover {
+            transition: backdrop-filter 200ms ease-in-out;
+            display: flex;
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: space-around;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            div {
+              display: inline-flex;
+              text-decoration: none;
+              align-items: center;
+              justify-content: center;
+              background-color: #1a1a1a;
+              padding: 15px;
+              border-radius: 30px;
+              color: white;
+              transition: color 200ms ease-in-out;
+              &:hover {
+                color: #834AFF;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
     }
   }
+
   .edit-bg {
     display: none;
     position: absolute;

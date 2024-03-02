@@ -17,9 +17,13 @@
   <div class="content-view">
     <div class="t-header">
       <h1>Actors</h1>
-      <iconBtn icon="add" text="Add an Actor" />
+      <iconBtn icon="add" text="Add an Actor" url=""/>
     </div>
-    <table>
+    <div class="not-logged-in" v-if="!token">
+      <h1>You must be signed in to see the list!</h1>
+      <iconBtn text="Sign In" url="login"/>
+    </div>
+    <table v-else>
       <tr>
         <th>id</th>
         <th>first name</th>
