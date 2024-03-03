@@ -8,14 +8,14 @@
       <div class="inner-header-container">
         <router-link class="home" to="/"><h1>CineBuddy</h1></router-link>
         <nav>
-          <router-link class="hover-underline-animation" to="actors">Actors</router-link>
-          <router-link class="hover-underline-animation" to="movies">Movies</router-link>
-          <router-link class="hover-underline-animation" to="categories">Categories</router-link>
+          <router-link class="hover-underline-animation" to="/actors">Actors</router-link>
+          <router-link class="hover-underline-animation" to="/movies">Movies</router-link>
+          <router-link class="hover-underline-animation" to="/categories">Categories</router-link>
         </nav>
       </div>
       <div class="icn-header-container">
-        <router-link class="search" to="search"><span class="material-symbols-outlined">search</span></router-link>
-        <router-link class="search" to="login"><span class="material-symbols-outlined">login</span></router-link>
+        <router-link class="search" to="/search"><span class="material-symbols-outlined">search</span></router-link>
+        <router-link class="search" to="/login"><span class="material-symbols-outlined">login</span></router-link>
       </div>
     </header>
     <div id="view-content">

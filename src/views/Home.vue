@@ -14,13 +14,57 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="moviesData['hydra:member']" v-for="movie in moviesData['hydra:member'].slice(0,4)">
-    <img src="" alt="">
-    <h2>{{ movie.title }}</h2>
-    <p>{{ movie.description }}</p>
-  </div>
-  <div v-if="actorsData['hydra:member']" v-for="actor in actorsData['hydra:member'].slice(0,4)">
-    <h2>{{ actor.firstName }} {{ actor.lastName }}</h2>
-    <p>{{ actor.description }}</p>
+  <div class="content-view">
+    <div>
+      <h1>Trending Movies</h1>
+      <div class="homepage-div">
+        <div v-if="moviesData['hydra:member']" v-for="movie in moviesData['hydra:member'].slice(0,5)">
+          <router-link :to="{name: 'moviesDetails', params: {id: movie.id}}">
+            <div>
+              <div class="poster"></div>
+              <h2>{{ movie.title }}</h2>
+              <p>{{ movie.releaseDate.substring(0,4) }}</p>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <h1>Trending Actors</h1>
+      <div class="homepage-div">
+        <div class="actor-card" v-if="actorsData['hydra:member']" v-for="actor in actorsData['hydra:member'].slice(0,5)">
+          <router-link :to="{name: 'actorsDetails', params: {id: actor.id}}">
+          <div class="actor-poster"></div>
+          <h2>{{ actor.firstName }} {{ actor.lastName }}</h2>
+          <p>{{ actor.description }}</p>
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.content-view {
+  padding: 100px 200px;
+}
+.homepage-div {
+  display: flex;
+  margin: 20px;
+  gap: 20px;
+  .actor-card{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+}
+a {
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: #834AFF;
+  }
+}
+</style>
