@@ -47,7 +47,7 @@
     <div class="content-grid" v-else>
       <div v-if="moviesData" v-for="movie in moviesData['hydra:member']" class="movie">
         <div class="img-container">
-          <div class="Poster">
+          <div class="poster">
           </div>
           <div class="img-hover">
             <div @click="edit"><span class="material-symbols-outlined">edit</span></div>
@@ -94,12 +94,6 @@
       .img-container {
         .img-hover {
           display: none;
-        }
-        .Poster {
-          width: 160px;
-          height: 230px;
-          background-color: lightgray;
-          border: 1px solid black;
         }
         &:hover {
           position: relative;
