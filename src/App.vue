@@ -14,8 +14,8 @@
         </nav>
       </div>
       <div class="icn-header-container">
-        <router-link class="search" to="search"><span class="material-symbols-outlined">search</span></router-link>
-        <router-link class="search" to="login"><span class="material-symbols-outlined">login</span></router-link>
+        <router-link class="search" to="/search"><span class="material-symbols-outlined">search</span></router-link>
+        <router-link class="search" to="/login"><span class="material-symbols-outlined">login</span></router-link>
       </div>
     </header>
     <div id="view-content">

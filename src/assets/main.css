@@ -50,8 +50,24 @@ input, textarea {
     border: 1px solid black;
 }
 
+.actor-poster {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.actor-poster-details {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
 .poster-details {
-    width: 400px;
+    width: 600px;
     height: 430px;
     background-color: lightgray;
     border: 1px solid black;
