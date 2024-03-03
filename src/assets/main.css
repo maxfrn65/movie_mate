@@ -43,3 +43,16 @@ input, textarea {
     }
 }
 
+.poster {
+    width: 170px;
+    height: 230px;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.poster-details {
+    width: 400px;
+    height: 430px;
+    background-color: lightgray;
+    border: 1px solid black;
+}

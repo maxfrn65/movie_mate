@@ -5,6 +5,7 @@ import Actors from '../views/Actors.vue'
 import Categories from '../views/Categories.vue'
 import Search from "@/views/Search.vue";
 import Login from "@/views/Login.vue";
+import MovieDetails from "@/views/MovieDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +13,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/movies',
       name: 'movies',
       component: Movies
+    },
+    {
+      path: '/movies/:id',
+      name: 'moviesDetails',
+      component: MovieDetails,
+      props: true
     },
     {
       path: '/actors',
@@ -38,7 +45,7 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login
-    }
+    },
   ]
 })
 
