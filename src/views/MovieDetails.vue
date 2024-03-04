@@ -34,7 +34,7 @@ onMounted(async () => {
 
   actorsFetching.value = await Promise.all(actorsPromises);
 
-  const categoryResponse = await axios.get(`${api_url}/${movieDetails.value.category}`, {
+  const categoryResponse = await axios.get(`${api_url}${movieDetails.value.category}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     }
