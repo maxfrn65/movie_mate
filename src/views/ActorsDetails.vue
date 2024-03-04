@@ -32,7 +32,7 @@ onMounted(async () => {
   console.log(nationalityFetching)
 
   const moviesPromises = actorsDetails.value.movies.map(async movieURL => {
-    const movieResponse = await axios.get(`${api_url}/${movieURL}`, {
+    const movieResponse = await axios.get(`${api_url}${movieURL}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
