@@ -3,9 +3,14 @@
   import iconBtn from '@/components/iconBtn.vue'
   import axios from 'axios'
 
+  const api_url = 'http://cb-be.maximefourna.fr';
+  let token = localStorage.getItem('token')
   let actorsData = ref([]);
   onMounted(async () => {
-    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors?page=1')
+    const actorsResponse = await axios.get(`${api_url}/api/actors`, {headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
     actorsData.value = actorsResponse.data})
 </script>
 
@@ -13,26 +18,30 @@
   <div class="content-view">
     <div class="t-header">
       <h1>Actors</h1>
-      <iconBtn icon="add" text="Add an Actor" />
+      <iconBtn icon="add" text="Add an Actor" url=""/>
     </div>
-    <table>
+    <div class="not-logged-in" v-if="!token">
+      <h1>You must be signed in to see the list!</h1>
+      <iconBtn text="Sign In" url="login"/>
+    </div>
+    <table v-else>
       <tr>
         <th>id</th>
         <th>first name</th>
         <th>last name</th>
-        <th>edit/delete</th>
+        <th>more...</th>
       </tr>
       <tr v-for="actor in actorsData['hydra:member']">
         <td>{{ actor.id }}</td>
         <td>{{ actor.firstName }}</td>
         <td>{{ actor.lastName }}</td>
-        <td><router-link to="" class="icn"><span class="material-symbols-outlined">edit</span></router-link><router-link to="" class="icn"><span class="material-symbols-outlined">delete</span></router-link></td>
+        <td><router-link :to="{name: 'actorsDetails', params: {id: actor.id}}" style="text-decoration: underline">Go to Actor Page</router-link></td>
       </tr>
     </table>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .t-header {
     display: flex;
     justify-content: space-between;
@@ -50,16 +59,6 @@
       padding: 10px 0;
       border-bottom: 1px solid #1a1a1a;
       height: fit-content;
-      .icn {
-        padding: 10px;
-        border-radius: 50px;
-        color: black;
-        transition: color 0.25s ease-out;
-        &:hover {
-          background-color: #f5ecff;
-          color: #834AFF;
-        }
-      }
     }
   }
 </style>

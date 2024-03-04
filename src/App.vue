@@ -6,16 +6,16 @@
   <div id="app">
     <header>
       <div class="inner-header-container">
-        <router-link class="home" to="/"><h1>MovieMate</h1></router-link>
+        <router-link class="home" to="/"><h1>CineBuddy</h1></router-link>
         <nav>
-          <router-link class="hover-underline-animation" to="actors">Actors</router-link>
-          <router-link class="hover-underline-animation" to="movies">Movies</router-link>
-          <router-link class="hover-underline-animation" to="categories">Categories</router-link>
+          <router-link class="hover-underline-animation" to="/actors">Actors</router-link>
+          <router-link class="hover-underline-animation" to="/movies">Movies</router-link>
+          <router-link class="hover-underline-animation" to="/categories">Categories</router-link>
         </nav>
       </div>
       <div class="icn-header-container">
-        <router-link class="search" to="search"><span class="material-symbols-outlined">search</span></router-link>
-        <router-link class="search" to="login"><span class="material-symbols-outlined">login</span></router-link>
+        <router-link class="search" to="/search"><span class="material-symbols-outlined">search</span></router-link>
+        <router-link class="search" to="/login"><span class="material-symbols-outlined">login</span></router-link>
       </div>
     </header>
     <div id="view-content">
@@ -97,7 +97,11 @@
     transition: transform 0.25s ease-out;
   }
 
-  .hover-underline-animation:hover::after {
+  .hover-underline-animation:focus {
+    color: #834AFF;
+  }
+
+  .hover-underline-animation:focus::after, {
     transform: scaleX(1);
     transform-origin: bottom left;
   }

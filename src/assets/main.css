@@ -6,6 +6,77 @@ h1 {
     font-size: 32px;
 }
 
+.stop-scrolling {
+
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
 .content-view {
     padding: 50px 300px;
+}
+
+.icn {
+    padding: 5px;
+    color: black;
+    transition: color 0.25s ease-in-out;
+    &:hover {
+        cursor: pointer;
+        color: #834AFF;
+    }
+}
+
+.form-label {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    width: 50%;
+    height: 40px;
+    border: black 1px solid;
+    padding: 10px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.poster {
+    width: 170px;
+    height: 230px;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.actor-poster {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.actor-poster-details {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+.poster-details {
+    width: 600px;
+    height: 430px;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    &:hover {
+        color: #834AFF;
+    }
 }
