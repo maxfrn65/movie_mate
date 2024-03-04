@@ -47,7 +47,7 @@ h1 {
 <script>
 import axios from "axios";
 
-const api_url = 'http://cb-be.maximefourna.fr';
+const api_url = 'https://cb-be.maximefourna.fr';
 
 export default {
   methods: {

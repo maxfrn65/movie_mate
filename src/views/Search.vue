@@ -2,7 +2,7 @@
 import axios from 'axios'
 import {ref} from "vue";
 
-const api_url = 'http://cb-be.maximefourna.fr';
+const api_url = 'https://cb-be.maximefourna.fr';
 let token = localStorage.getItem('token');
 let searchResults = ref('');
 let searchInput = ref('');
