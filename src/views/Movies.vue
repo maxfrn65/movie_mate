@@ -2,36 +2,43 @@
   import { ref, onMounted } from 'vue'
   import axios from 'axios'
   import IconBtn from "@/components/iconBtn.vue";
-  import IconFormBtn from "@/components/iconFormBtn.vue";
 
   let movies = [];
-  let selectedMovieId = null;
-  let selectedMovie = null;
-  let editedMovieTitle = '';
   let token = localStorage.getItem('token')
   let moviesData = ref([]);
+  const currentPage = ref(1);
+  const moviesPerPage = 12;
+  const totalMovies = ref(0);
 
-  onMounted(async () => {
-    const moviesResponse = await axios.get('https://127.0.0.1:8000/api/movies', {headers: {
+  const fetchMovies = async () => {
+    const response = await axios.get('https://127.0.0.1:8000/api/movies', {
+      headers: {
         'Authorization': `Bearer ${token}`,
+      },
+      params: {
+        page: currentPage.value,
+        itemsPerPage: moviesPerPage
       }
-    })
-    moviesData.value = moviesResponse.data
-    console.log(moviesData.value)
-  })
+    });
+    moviesData.value = response.data['hydra:member'];
+    totalMovies.value = response.data['hydra:totalItems'];
+  };
 
-  const closePopup = () => {
-    document.querySelector('.edit-bg').style.display = 'none'
-  }
+  onMounted(fetchMovies);
 
-  function edit(movieId) {
-    document.querySelector('.edit-bg').style.display = 'block';
-    document.body.classList.add('.stop-scroll');
-    this.selectedMovieId = this.selectedMovieId === movieId ? null : movieId;
-    this.selectedMovie = this.movies.find(movie => movie.id === this.selectedMovieId);
-    this.editedMovieTitle = this.selectedMovie ? this.selectedMovie.title : '';
-  }
+  const prevPage = () => {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+      fetchMovies();
+    }
+  };
 
+  const nextPage = () => {
+    if (currentPage.value < Math.ceil(totalMovies.value / moviesPerPage)) {
+      currentPage.value++;
+      fetchMovies();
+    }
+  };
 </script>
 
 <template>
@@ -45,7 +52,7 @@
       <iconBtn text="Sign In" url="login"/>
     </div>
     <div class="content-grid" v-else>
-      <div v-if="moviesData" v-for="movie in moviesData['hydra:member']" class="movie">
+      <div v-if="moviesData" v-for="movie in moviesData" class="movie">
         <router-link :to="{name: 'moviesDetails', params: {id: movie.id}}">
           <div class="img-container">
             <div class="poster">
@@ -56,22 +63,13 @@
         </router-link>
       </div>
     </div>
-    </div>
-  <div class="edit-bg">
-    <div class="edit-fg">
-      <div class="popup-header">
-        <h1>Edit</h1>
-        <button @click="closePopup"><span class="material-symbols-outlined">close</span></button>
-      </div>
-      <form action="">
-        <div class="form-label">
-          <label for="">Title</label>
-          <input type="text" v-model="editedMovieTitle">
-        </div>
-      </form>
-      <icon-btn icon="" text="Edit this Movie" />
+    <div class="pagination">
+      <button @click="prevPage" :disabled="currentPage <= 1">Previous</button>
+      <span>Page {{ currentPage }}/{{Math.ceil(totalMovies/moviesPerPage)}}</span>
+      <button @click="nextPage" :disabled="currentPage >= totalMovies.value / moviesPerPage">Next</button>
     </div>
   </div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -92,7 +90,9 @@
       width: fit-content;
     }
   }
-
+  .pagination {
+    margin-top: 10px;
+  }
   .edit-bg {
     display: none;
     position: absolute;
