@@ -8,7 +8,7 @@ import IconFormBtn from "@/components/iconFormBtn.vue";
   <form @submit.prevent="submitForm">
     <div class="form-label-container">
       <div class="form-label">
-        <label for="username">Username</label>
+        <label for="username">Email</label>
         <input type="text" name="username" id="username">
       </div>
       <div class="form-label">

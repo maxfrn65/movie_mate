@@ -103,7 +103,7 @@ const deleteMovie = async (movieId) => {
         <h2>What is this movie about?</h2>
         <p>{{movieDetails.description}}</p>
         <hr>
-        <h2>Actors</h2>
+        <h2>Cast</h2>
         <div class="not-logged-in" v-if="!token">
           <h1>Sign in to see more!</h1>
           <iconBtn text="Sign In" url="login"/>
