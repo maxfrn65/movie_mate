@@ -1,15 +1,19 @@
 <script setup>
-import {useRoute} from "vue-router";
-import {onMounted, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
 import IconBtn from "@/components/iconBtn.vue";
 
 const route = useRoute();
+const router = useRouter();
 const token = localStorage.getItem('token');
 const id = route.params.id;
 let actorsFetching = ref({});
 let categoriesFetching = ref({});
 let movieDetails = ref({});
+let showDeleteMessage = ref(false);
+let editedMovie = ref({});
+
 
 onMounted(async () => {
   const moviesResponse = await axios.get(`https://127.0.0.1:8000/api/movies/${id}`, {headers: {
@@ -38,6 +42,47 @@ onMounted(async () => {
   console.log(categoriesFetching)
 });
 
+const closeDeletePopup = () => {
+  document.querySelector('.delete-form').style.display = 'none';
+}
+
+const deletePopup = () => {
+  document.querySelector('.delete-form').style.display = 'block'
+}
+
+const closeEditPopup = () => {
+  document.querySelector('.edit-form').style.display = 'none';
+}
+
+const editPopup = () => {
+  document.querySelector('.edit-form').style.display = 'block'
+  editedMovie.value = { ...movieDetails.value };
+}
+
+
+const submitEditForm = async () => {
+  console.log('click')
+  await axios.put(`https://127.0.0.1:8000/api/movies/${id}`, editedMovie.value, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+
+  const updatedMovieResponse = await axios.get(`https://127.0.0.1:8000/api/movies/${id}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  movieDetails.value = updatedMovieResponse.data;
+
+  closeEditPopup();
+}
+
+const deleteMovie = async (movieId) => {
+  await axios.delete(`https://127.0.0.1:8000/api/movies/${movieId}`, {headers: {'Authorization': `Bearer ${token}`}})
+  showDeleteMessage.value = true; // Afficher le message de suppression
+  setTimeout(() => {
+    showDeleteMessage.value = false; // Masquer le message après un certain temps
+    router.go(-1);
+  }, 2000);
+}
+
 </script>
 
 <template>
@@ -49,8 +94,8 @@ onMounted(async () => {
         <div class="movie-metadata-header" style="display: flex; justify-content: space-between;">
           <h1>{{movieDetails.title}}</h1>
           <div style="display: flex; gap: 10px;">
-            <icon-btn icon="edit" text="Edit"/>
-            <icon-btn icon="delete" text="Delete" />
+            <icon-btn icon="edit" text="Edit" @click="editPopup"/>
+            <icon-btn icon="delete" text="Delete" @click="deletePopup"/>
           </div>
         </div>
         <h3 v-if="movieDetails.releaseDate">Release Date: {{movieDetails.releaseDate.substring(0,4)}}</h3>
@@ -67,11 +112,46 @@ onMounted(async () => {
         <div class="actors-row" v-else>
           <div class="actor-container" v-for="actor in actorsFetching">
             <router-link :to="{name: 'actorsDetails', params: {id: actor.id}}">
-              <h3>{{actor.firstName}}</h3>
-              <h3>{{actor.lastName}}</h3>
+              <div class="actor-poster"></div>
+              <h3>{{actor.firstName}} {{actor.lastName}}</h3>
             </router-link>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-bg delete-form">
+    <div class="form-fg">
+      <div class="popup-header">
+        <h1>Delete this Movie?</h1>
+        <button @click="closeDeletePopup"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <icon-btn icon="" text="Delete" @click="deleteMovie(movieDetails.id)"/>
+      <icon-btn icon="" text="Cancel" @click="closePopup"/>
+      <div v-if="showDeleteMessage" class="delete-message">
+        <p style="color: green">Le film a été supprimé avec succès.</p>
+      </div>
+    </div>
+  </div>
+  <div class="form-bg edit-form">
+    <div class="form-fg">
+      <div class="popup-header">
+        <h1>Edit</h1>
+        <button @click="closeEditPopup"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <form @submit.prevent="submitEditForm">
+        <label for="title">Title</label>
+        <input type="text" name="title" v-model="editedMovie.title">
+        <label for="about">About</label>
+        <textarea name="about" id="" cols="30" rows="10" v-model="editedMovie.description"></textarea>
+        <label for="releaseDate">Release Date</label>
+        <input type="text" name="releaseDate" v-model="editedMovie.releaseDate">
+        <label for="title">Duration</label>
+        <input type="text" required pattern="[0-9]{2}:[0-9]{2}:[0-9]{2}" title="Write a duration in the format hh:mm:ss" v-model="editedMovie.duration">
+        <input type="submit" value="Edit this Movie">
+      </form>
+      <div v-if="showDeleteMessage" class="delete-message">
+        <p style="color: green">Le film a été modifié avec succès.</p>
       </div>
     </div>
   </div>
@@ -96,13 +176,74 @@ onMounted(async () => {
           display: flex;
           gap: 50px;
           .actor-container {
-            display: flex;
-            flex-direction: column;
-            h2 {
+            h3 {
+              margin-top: 10px;
               text-align: center;
             }
           }
         }
+      }
+    }
+  }
+  .form-bg {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    background-color: rgb(0,0,0,0.5);
+    .form-fg {
+      .popup-header {
+        display: flex;
+        justify-content: space-between;
+        button {
+          background-color: transparent;
+          border: none;
+          transition: all 200ms ease-in-out;
+          &:hover {
+            color: #834AFF;
+            cursor: pointer;
+            transform: rotate(90deg);
+          }
+          span {
+            font-size: 32px;
+          }
+        }
+      }
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 50px;
+      width: 700px;
+      background-color: white;
+      input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+      }
+      input[type="submit"] {
+        background-color: #1a1a1a;
+        color: white;
+        &:hover {
+          cursor: pointer;
+          background-color: #834AFF;
+          &:active {
+            background-color: #6638c7;
+
+          }
+        }
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
       }
     }
   }

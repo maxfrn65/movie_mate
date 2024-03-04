@@ -61,6 +61,12 @@ onMounted(async () => {
     align-items: center;
   }
 }
+.actor-card {
+  h2 {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
 a {
   text-decoration: none;
   color: black;

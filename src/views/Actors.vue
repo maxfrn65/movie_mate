@@ -34,7 +34,7 @@
         <td>{{ actor.id }}</td>
         <td>{{ actor.firstName }}</td>
         <td>{{ actor.lastName }}</td>
-        <td><router-link :to="{name: 'actorsDetails', params: {id: actor.id}}">Go to Actor Page</router-link></td>
+        <td><router-link :to="{name: 'actorsDetails', params: {id: actor.id}}" style="text-decoration: underline">Go to Actor Page</router-link></td>
       </tr>
     </table>
   </div>

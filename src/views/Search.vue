@@ -25,9 +25,17 @@ const search = async () => {
 <template>
   <input type="text" name="search" placeholder="Search..." @input="search" v-model="searchInput">
   <div>
-    <div v-if="searchInput" v-for="result in searchResults['hydra:member']">
-      <h1>{{ result.title }}</h1>
-      <p>{{ result.description }}</p>
+    <div class="content-grid">
+      <div v-if="searchInput" v-for="result in searchResults['hydra:member']">
+        <router-link :to="{name: 'moviesDetails', params: {id: result.id}}">
+          <div class="img-container">
+            <div class="poster">
+            </div>
+          </div>
+          <h2 v-if="result.title.length<15">{{result.title}}</h2>
+          <h2 v-else>{{ result.title.slice(0,15) }}...</h2>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +43,18 @@ const search = async () => {
 <style scoped lang="scss">
   ::placeholder {
     color: white;
+  }
+  .content-grid {
+    display: grid;
+    margin-top: 50px;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    justify-items: center;
+    align-items: center;
+    .movie {
+      width: fit-content;
+    }
   }
   input {
     border: none;
