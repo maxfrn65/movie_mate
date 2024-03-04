@@ -22,7 +22,8 @@ onMounted(async () => {
           <router-link :to="{name: 'moviesDetails', params: {id: movie.id}}">
             <div>
               <div class="poster"></div>
-              <h2>{{ movie.title }}</h2>
+              <h2 v-if="movie.title.length<15">{{movie.title}}</h2>
+              <h2 v-else>{{ movie.title.slice(0,15) }}...</h2>
               <p>{{ movie.releaseDate.substring(0,4) }}</p>
             </div>
           </router-link>

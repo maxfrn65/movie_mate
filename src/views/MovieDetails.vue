@@ -66,8 +66,10 @@ onMounted(async () => {
         </div>
         <div class="actors-row" v-else>
           <div class="actor-container" v-for="actor in actorsFetching">
-            <h3>{{actor.firstName}}</h3>
-            <h3>{{actor.lastName}}</h3>
+            <router-link :to="{name: 'actorsDetails', params: {id: actor.id}}">
+              <h3>{{actor.firstName}}</h3>
+              <h3>{{actor.lastName}}</h3>
+            </router-link>
           </div>
         </div>
       </div>

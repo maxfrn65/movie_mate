@@ -46,15 +46,14 @@
     </div>
     <div class="content-grid" v-else>
       <div v-if="moviesData" v-for="movie in moviesData['hydra:member']" class="movie">
-        <div class="img-container">
-          <div class="poster">
+        <router-link :to="{name: 'moviesDetails', params: {id: movie.id}}">
+          <div class="img-container">
+            <div class="poster">
+            </div>
           </div>
-          <div class="img-hover">
-            <div @click="edit"><span class="material-symbols-outlined">edit</span></div>
-            <div><span class="material-symbols-outlined">delete</span></div>
-          </div>
-        </div>
-        <h2>{{ movie.title }}</h2>
+          <h2 v-if="movie.title.length<15">{{movie.title}}</h2>
+          <h2 v-else>{{ movie.title.slice(0,15) }}...</h2>
+        </router-link>
       </div>
     </div>
     </div>
@@ -91,41 +90,6 @@
     align-items: center;
     .movie {
       width: fit-content;
-      .img-container {
-        .img-hover {
-          display: none;
-        }
-        &:hover {
-          position: relative;
-          .img-hover {
-            transition: backdrop-filter 200ms ease-in-out;
-            display: flex;
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: space-around;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            div {
-              display: inline-flex;
-              text-decoration: none;
-              align-items: center;
-              justify-content: center;
-              background-color: #1a1a1a;
-              padding: 15px;
-              border-radius: 30px;
-              color: white;
-              transition: color 200ms ease-in-out;
-              &:hover {
-                color: #834AFF;
-                cursor: pointer;
-              }
-            }
-          }
-        }
-      }
     }
   }
 

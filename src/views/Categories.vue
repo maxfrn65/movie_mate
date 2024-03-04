@@ -27,12 +27,12 @@ onMounted(async () => {
       <tr>
         <th>id</th>
         <th>name</th>
-        <th>edit/delete</th>
+        <th>more...</th>
       </tr>
       <tr v-for="category in categoriesData['hydra:member']">
         <td>{{ category.id }}</td>
         <td>{{ category.name }}</td>
-        <td><router-link to="" class="icn"><span class="material-symbols-outlined">edit</span></router-link><router-link to="" class="icn"><span class="material-symbols-outlined">delete</span></router-link></td>
+        <td><router-link :to="{name: 'categoriesDetails', params: {id: category.id}}">Go to Category Page</router-link></td>
       </tr>
     </table>
   </div>

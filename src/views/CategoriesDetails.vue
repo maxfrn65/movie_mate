@@ -7,28 +7,19 @@ import IconBtn from "@/components/iconBtn.vue";
 const route = useRoute();
 const token = localStorage.getItem('token');
 const id = route.params.id;
-let actorsDetails = ref({});
-let nationalityFetching = ref({});
+let categoriesDetails = ref({});
 let moviesFetching = ref({});
 
 
 onMounted(async () => {
-  const actorsResponse = await axios.get(`https://127.0.0.1:8000/api/actors/${id}`, {headers: {
+  const categoriesResponse = await axios.get(`https://127.0.0.1:8000/api/categories/${id}`, {headers: {
       'Authorization': `Bearer ${token}`,
     }
   })
-  actorsDetails.value = actorsResponse.data;
-  console.log(actorsDetails)
+  categoriesDetails.value = categoriesResponse.data;
+  console.log(categoriesDetails)
 
-  const nationalityResponse = await axios.get(`https://127.0.0.1:8000${actorsDetails.value.nationality}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    }
-  });
-  nationalityFetching.value = nationalityResponse.data;
-  console.log(nationalityFetching)
-
-  const moviesPromises = actorsDetails.value.movies.map(async movieURL => {
+  const moviesPromises = categoriesDetails.value.movies.map(async movieURL => {
     const movieResponse = await axios.get(`https://127.0.0.1:8000${movieURL}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -41,22 +32,21 @@ onMounted(async () => {
   console.log(moviesFetching)
 });
 
+
+
 </script>
 
 <template>
   <div class="content-view">
     <div class="movie-details-container">
-      <div class="actor-poster-details">
-      </div>
       <div class="movie-metadata">
         <div class="movie-metadata-header" style="display: flex; justify-content: space-between;">
-          <h1>{{actorsDetails.firstName}} {{actorsDetails.lastName}}</h1>
+          <h1>{{categoriesDetails.name}}</h1>
           <div style="display: flex; gap: 10px;">
             <icon-btn icon="edit" text="Edit"/>
             <icon-btn icon="delete" text="Delete" />
           </div>
         </div>
-        <h3>{{nationalityFetching.nationality}}</h3>
         <hr>
         <div class="actors-row">
           <div class="actor-container" v-for="movie in moviesFetching">
