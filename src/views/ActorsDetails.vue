@@ -114,7 +114,7 @@ const deleteActor = async (actorId) => {
   <div class="form-bg delete-form">
     <div class="form-fg">
       <div class="popup-header">
-        <h1>Delete this Movie?</h1>
+        <h1>Delete</h1>
         <button @click="closeDeletePopup"><span class="material-symbols-outlined">close</span></button>
       </div>
       <icon-btn icon="" text="Delete" @click="deleteActor(actorsDetails.id)"/>
