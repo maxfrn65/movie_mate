@@ -3,7 +3,7 @@
   import axios from 'axios'
   import IconBtn from "@/components/iconBtn.vue";
 
-  const api_url = 'http://cb-be.maximefourna.fr';
+  const api_url = 'https://cb-be.maximefourna.fr';
   let movies = [];
   let token = localStorage.getItem('token')
   let moviesData = ref([]);

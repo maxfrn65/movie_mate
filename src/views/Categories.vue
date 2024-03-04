@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import IconBtn from "@/components/iconBtn.vue";
 
-const api_url = 'http://cb-be.maximefourna.fr';
+const api_url = 'https://cb-be.maximefourna.fr';
 let token = localStorage.getItem('token')
 let categoriesData = ref([]);
 onMounted(async () => {
