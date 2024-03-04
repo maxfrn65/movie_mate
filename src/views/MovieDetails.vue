@@ -61,7 +61,6 @@ const editPopup = () => {
 
 
 const submitEditForm = async () => {
-  console.log('click')
   await axios.put(`https://127.0.0.1:8000/api/movies/${id}`, editedMovie.value, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
