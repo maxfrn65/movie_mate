@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import IconBtn from "@/components/iconBtn.vue";
 
+const api_url = 'http://cb-be.maximefourna.fr';
 const route = useRoute();
 const router = useRouter();
 const token = localStorage.getItem('token');
@@ -15,7 +16,7 @@ let showDeleteMessage = ref(false);
 
 
 onMounted(async () => {
-  const categoriesResponse = await axios.get(`https://127.0.0.1:8000/api/categories/${id}`, {headers: {
+  const categoriesResponse = await axios.get(`${api_url}/api/categories/${id}`, {headers: {
       'Authorization': `Bearer ${token}`,
     }
   })
@@ -23,7 +24,7 @@ onMounted(async () => {
   console.log(categoriesDetails)
 
   const moviesPromises = categoriesDetails.value.movies.map(async movieURL => {
-    const movieResponse = await axios.get(`https://127.0.0.1:8000${movieURL}`, {
+    const movieResponse = await axios.get(`${api_url}${movieURL}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -49,11 +50,11 @@ const editPopup = () => {
 }
 
 const submitEditForm = async () => {
-  await axios.put(`https://127.0.0.1:8000/api/categories/${id}`, editedCategory.value, {
+  await axios.put(`${api_url}/api/categories/${id}`, editedCategory.value, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
 
-  const updatedCategoryResponse = await axios.get(`https://127.0.0.1:8000/api/categories/${id}`, {
+  const updatedCategoryResponse = await axios.get(`${api_url}/api/categories/${id}`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
   categoriesDetails.value = updatedCategoryResponse.data;

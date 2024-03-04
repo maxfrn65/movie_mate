@@ -3,10 +3,11 @@
   import iconBtn from '@/components/iconBtn.vue'
   import axios from 'axios'
 
+  const api_url = 'http://cb-be.maximefourna.fr';
   let token = localStorage.getItem('token')
   let actorsData = ref([]);
   onMounted(async () => {
-    const actorsResponse = await axios.get('https://127.0.0.1:8000/api/actors', {headers: {
+    const actorsResponse = await axios.get(`${api_url}/api/actors`, {headers: {
         'Authorization': `Bearer ${token}`,
       }
     })

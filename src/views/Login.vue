@@ -47,6 +47,8 @@ h1 {
 <script>
 import axios from "axios";
 
+const api_url = 'http://cb-be.maximefourna.fr';
+
 export default {
   methods: {
     async submitForm() {
@@ -54,7 +56,7 @@ export default {
       const password = document.getElementById('password').value
 
       try {
-        const response = await axios.post('https://127.0.0.1:8000/api/login_check', {
+        const response = await axios.post(`${api_url}/api/login_check`, {
           username: username,
           password: password
         });

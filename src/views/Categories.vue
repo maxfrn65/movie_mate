@@ -3,10 +3,11 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import IconBtn from "@/components/iconBtn.vue";
 
+const api_url = 'http://cb-be.maximefourna.fr';
 let token = localStorage.getItem('token')
 let categoriesData = ref([]);
 onMounted(async () => {
-  const categoriesResponse = await axios.get('https://127.0.0.1:8000/api/categories', {headers: {
+  const categoriesResponse = await axios.get(`${api_url}/api/categories`, {headers: {
       'Authorization': `Bearer ${token}`,
     }
   })

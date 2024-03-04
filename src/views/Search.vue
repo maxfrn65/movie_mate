@@ -2,13 +2,14 @@
 import axios from 'axios'
 import {ref} from "vue";
 
+const api_url = 'http://cb-be.maximefourna.fr';
 let token = localStorage.getItem('token');
 let searchResults = ref('');
 let searchInput = ref('');
 const search = async () => {
   try {
     setTimeout( async () => {
-      const response = await axios.get(`https://127.0.0.1:8000/api/movies?title=${searchInput.value}`, {
+      const response = await axios.get(`${api_url}/api/movies?title=${searchInput.value}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }

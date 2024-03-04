@@ -8,6 +8,7 @@ const route = useRoute();
 const router = useRouter();
 const token = localStorage.getItem('token');
 const id = route.params.id;
+const api_url = 'http://cb-be.maximefourna.fr';
 let actorsDetails = ref({});
 let nationalityFetching = ref({});
 let moviesFetching = ref({});
@@ -15,14 +16,14 @@ let editedActor = ref({});
 let showDeleteMessage = ref(false);
 
 onMounted(async () => {
-  const actorsResponse = await axios.get(`https://127.0.0.1:8000/api/actors/${id}`, {headers: {
+  const actorsResponse = await axios.get(`${api_url}/api/actors/${id}`, {headers: {
       'Authorization': `Bearer ${token}`,
     }
   })
   actorsDetails.value = actorsResponse.data;
   console.log(actorsDetails)
 
-  const nationalityResponse = await axios.get(`https://127.0.0.1:8000${actorsDetails.value.nationality}`, {
+  const nationalityResponse = await axios.get(`${api_url}/${actorsDetails.value.nationality}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     }
@@ -31,7 +32,7 @@ onMounted(async () => {
   console.log(nationalityFetching)
 
   const moviesPromises = actorsDetails.value.movies.map(async movieURL => {
-    const movieResponse = await axios.get(`https://127.0.0.1:8000${movieURL}`, {
+    const movieResponse = await axios.get(`${api_url}/${movieURL}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -61,11 +62,11 @@ const editPopup = () => {
 }
 
 const submitEditForm = async () => {
-  await axios.put(`https://127.0.0.1:8000/api/actors/${id}`, editedActor.value, {
+  await axios.put(`${api_url}/api/actors/${id}`, editedActor.value, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
 
-  const updatedActorResponse = await axios.get(`https://127.0.0.1:8000/api/actors/${id}`, {
+  const updatedActorResponse = await axios.get(`${api_url}/api/actors/${id}`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
   actorsDetails.value = updatedActorResponse.data;
@@ -73,7 +74,7 @@ const submitEditForm = async () => {
 }
 
 const deleteActor = async (actorId) => {
-  await axios.delete(`https://127.0.0.1:8000/api/actors/${actorId}`, {headers: {'Authorization': `Bearer ${token}`}})
+  await axios.delete(`${api_url}/api/actors/${actorId}`, {headers: {'Authorization': `Bearer ${token}`}})
   showDeleteMessage.value = true;
   setTimeout(() => {
     showDeleteMessage.value = false;

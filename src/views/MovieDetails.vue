@@ -4,6 +4,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
 import IconBtn from "@/components/iconBtn.vue";
 
+const api_url = 'http://cb-be.maximefourna.fr';
 const route = useRoute();
 const router = useRouter();
 const token = localStorage.getItem('token');
@@ -16,14 +17,14 @@ let editedMovie = ref({});
 
 
 onMounted(async () => {
-  const moviesResponse = await axios.get(`https://127.0.0.1:8000/api/movies/${id}`, {headers: {
+  const moviesResponse = await axios.get(`${api_url}/api/movies/${id}`, {headers: {
       'Authorization': `Bearer ${token}`,
     }
   })
   movieDetails.value = moviesResponse.data
   console.log(movieDetails)
   const actorsPromises = movieDetails.value.actor.map(async actorURL => {
-    const actorResponse = await axios.get(`https://127.0.0.1:8000${actorURL}`, {
+    const actorResponse = await axios.get(`${api_url}${actorURL}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -33,7 +34,7 @@ onMounted(async () => {
 
   actorsFetching.value = await Promise.all(actorsPromises);
 
-  const categoryResponse = await axios.get(`https://127.0.0.1:8000${movieDetails.value.category}`, {
+  const categoryResponse = await axios.get(`${api_url}/${movieDetails.value.category}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     }
@@ -61,11 +62,11 @@ const editPopup = () => {
 
 
 const submitEditForm = async () => {
-  await axios.put(`https://127.0.0.1:8000/api/movies/${id}`, editedMovie.value, {
+  await axios.put(`${api_url}/api/movies/${id}`, editedMovie.value, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
 
-  const updatedMovieResponse = await axios.get(`https://127.0.0.1:8000/api/movies/${id}`, {
+  const updatedMovieResponse = await axios.get(`${api_url}/api/movies/${id}`, {
     headers: { 'Authorization': `Bearer ${token}` }
   });
   movieDetails.value = updatedMovieResponse.data;
@@ -74,7 +75,7 @@ const submitEditForm = async () => {
 }
 
 const deleteMovie = async (movieId) => {
-  await axios.delete(`https://127.0.0.1:8000/api/movies/${movieId}`, {headers: {'Authorization': `Bearer ${token}`}})
+  await axios.delete(`${api_url}/api/movies/${movieId}`, {headers: {'Authorization': `Bearer ${token}`}})
   showDeleteMessage.value = true; // Afficher le message de suppression
   setTimeout(() => {
     showDeleteMessage.value = false; // Masquer le message après un certain temps

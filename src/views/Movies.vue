@@ -3,6 +3,7 @@
   import axios from 'axios'
   import IconBtn from "@/components/iconBtn.vue";
 
+  const api_url = 'http://cb-be.maximefourna.fr';
   let movies = [];
   let token = localStorage.getItem('token')
   let moviesData = ref([]);
@@ -18,7 +19,7 @@
   const totalMovies = ref(0);
 
   const fetchMovies = async () => {
-    const response = await axios.get('https://127.0.0.1:8000/api/movies', {
+    const response = await axios.get(`${api_url}/api/movies`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -57,11 +58,11 @@
   }
 
   const submitAddForm = async () => {
-    await axios.post(`https://127.0.0.1:8000/api/movies`, newMovie.value, {
+    await axios.post(`${api_url}/api/movies`, newMovie.value, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
 
-    const updatedMovieResponse = await axios.get(`https://127.0.0.1:8000/api/movies`, {
+    const updatedMovieResponse = await axios.get(`${api_url}/api/movies`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     movieDetails.value = updatedMovieResponse.data;
