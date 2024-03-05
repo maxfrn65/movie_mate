@@ -8,7 +8,7 @@ const route = useRoute();
 const router = useRouter();
 const token = localStorage.getItem('token');
 const id = route.params.id;
-const api_url = 'https://cb-be.maximefourna.fr';
+const api_url = 'https://localhost:8000';
 let actorsDetails = ref({});
 let nationalityFetching = ref({});
 let moviesFetching = ref({});
@@ -23,7 +23,7 @@ onMounted(async () => {
   actorsDetails.value = actorsResponse.data;
   console.log(actorsDetails)
 
-  const nationalityResponse = await axios.get(`${api_url}/${actorsDetails.value.nationality}`, {
+  const nationalityResponse = await axios.get(`${api_url}${actorsDetails.value.nationality}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     }

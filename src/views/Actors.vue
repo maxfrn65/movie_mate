@@ -3,7 +3,7 @@
   import iconBtn from '@/components/iconBtn.vue'
   import axios from 'axios'
 
-  const api_url = 'https://cb-be.maximefourna.fr';
+  const api_url = 'https://localhost:8000';
   let token = localStorage.getItem('token')
   let actorsData = ref([]);
   onMounted(async () => {

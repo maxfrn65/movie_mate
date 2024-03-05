@@ -4,7 +4,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
 import IconBtn from "@/components/iconBtn.vue";
 
-const api_url = 'https://cb-be.maximefourna.fr';
+const api_url = 'https://localhost:8000';
 const route = useRoute();
 const router = useRouter();
 const token = localStorage.getItem('token');
@@ -34,7 +34,7 @@ onMounted(async () => {
 
   actorsFetching.value = await Promise.all(actorsPromises);
 
-  const categoryResponse = await axios.get(`${api_url}/${movieDetails.value.category}`, {
+  const categoryResponse = await axios.get(`${api_url}${movieDetails.value.category}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
     }

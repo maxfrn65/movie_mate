@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-const api_url = 'https://cb-be.maximefourna.fr';
+const api_url = 'https://localhost:8000';
 const moviesData = ref([]);
 const actorsData = ref([]);
 onMounted(async () => {
